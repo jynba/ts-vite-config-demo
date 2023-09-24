@@ -1,0 +1,41 @@
+$namespace:'jy' !default;
+$block-sel:"-" !default;
+$element-sel:"__" !default;
+$modifier-sel:"--" !default;
+
+// b
+@mixin b($block){
+    // 定义变量 #{}避免计算
+    $B:#{ $namespace + $block-sel + $block};
+    // 定义类选择器
+    .#{$B}{
+        @content;//占位
+    }
+}
+
+// e
+@mixin e($element){
+    $selector:&; //获取外层选择器
+    @at-root { //跳出嵌套(前面不显示外层选择器
+        #{ $selector + $element-sel + $element}{
+            @content;
+        }
+    }
+}
+
+//m
+@mixin m($modifier){
+    $selector:&;
+    @at-root {
+        #{ $selector + $modifier-sel + $modifier}{
+            @content;
+        }
+    }
+}
+
+//bfc
+@mixin bfc{
+    height: 100%;
+    overflow:hidden;
+}
+

@@ -1,48 +1,36 @@
-<!--
- * @Author: GRIT
- * @Date: 2023-05-10 11:17:11
- * @LastEditors: GRIT
- * @LastEditTime: 2023-05-13 19:30:53
- * @FilePath: \vue_study\Vite4.3+Typescript+Vue3+Pinia_Project\vite-vue-ts-seed\src\views\HomeView.vue
- * @Description: 
--->
 <template>
-  <div ref="dom">{{ a }}</div>
-  <div>
-    <button @click="change">change</button>
-
-    <button @click="flag = !flag">创建与销毁</button>
-    菜单栏
-    <TheWelcome v-if="flag" :title="a" @on-click="getName" ref="theWelcome" />
-    <router-view v-slot="{ Component }">
-      <transition name="fade" mode="out-in">
-        <component :is="Component" />
-      </transition>
-    </router-view>
-  </div>
+  <div class="title">肿瘤术后复发预测报告分析平台</div>
+  <el-tabs class="tabs" v-model="activeName">
+    <el-tab-pane v-for="tab in tabs" :key="tab.name" :label="tab.label" :name="tab.name">
+      <!-- <component :is="tab.name" /> -->
+    </el-tab-pane>
+  </el-tabs>
 </template>
 <script lang="ts" setup>
-import TheWelcome from '@/components/TheWelcome.vue'
 import { ref } from 'vue'
-const a = ref('123')
-console.log(a)
-const getName = (name: string) => {
-  console.log('getName:', name, '====》我是父组件获取到的子组件的值')
-}
-// ts中的InstanceType
-const theWelcome = ref<InstanceType<typeof TheWelcome>>()
 
-const dom = ref<HTMLElement>()
-// const ab = reactive({
-//   a: '123',
-//   b: '456',
-// })
-// 使用ref获取dom；替代vue2中的this.$refs 以及jquery中的$(this.$refs)
-const change = function () {
-  console.log(dom.value)
-  // console.log(ab, ab['__v_raw']) 源码读出 等价于toRaw(ab)
-  console.log(theWelcome.value)
-}
-let flag = ref<boolean>(true)
+const activeName = ref('first')
+const tabs = [
+  { label: '首页', name: 'first' },
+  { label: '数据集', name: 'second' },
+  { label: '数据处理', name: 'third' },
+  { label: '数据分析', name: 'fourth' },
+]
 </script>
-<style scoped></style>
+<style scoped>
+.title {
+  font-size: 24px;
+  text-align: center;
+  font-weight: bold;
+}
+.tabs {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: #409eff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px #ccc;
+}
+</style>

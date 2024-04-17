@@ -5,7 +5,7 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
-import {ExcelData } from '@/components/Excel';
+import { ExcelData } from '@/components/Excel';
 import ImpExcel from '@/components/Excel/src/ImportExcel.vue'
 const emit = defineEmits(['success']);
 defineProps({

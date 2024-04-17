@@ -1,5 +1,6 @@
 <template>
   <div class="title">肿瘤术后复发预测报告分析平台</div>
+  <div class="text-red">123</div>
   <el-tabs class="tabs" v-model="activeName">
     <el-tab-pane v-for="tab in tabs" :key="tab.name" :label="tab.label" :name="tab.name">
       <!-- <component :is="tab.name" /> -->
@@ -23,6 +24,7 @@ const tabs = [
   text-align: center;
   font-weight: bold;
 }
+
 .tabs {
   margin-top: 20px;
   font-size: 16px;

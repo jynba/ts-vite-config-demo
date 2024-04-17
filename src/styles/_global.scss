@@ -1,0 +1,56 @@
+@import './variable';
+@import './element-variables';
+
+// 字体颜色
+.c-success,
+.cSuccess {
+  color: $c-success;
+}
+
+.c-danger,
+.cDanger {
+  color: $c-danger;
+}
+
+// 侧边菜单样式
+.el-menu-container:not(.el-menu--collapse) {
+  width: 200px;
+  height: 100%;
+}
+
+.el-menu-item,
+.el-sub-menu__title,
+.el-icon-arrow-down {
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #e7effe;
+    color: var(--el-color-primary) !important;
+  }
+}
+
+// 搜索框样式
+.searchbar {
+  padding: 20px;
+  background: $bg-panel;
+  margin-bottom: 10px;
+  .el-form {
+    .el-form-item {
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.el-button>span{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// 全局表格样式
+.table-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}

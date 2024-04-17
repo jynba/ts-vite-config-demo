@@ -4,21 +4,21 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     meta: {
-      title: '主页',
+      title: '肿瘤术后复发预测报告分析平台',
     },
     component: () => import('@/views/HomeView.vue'),
   },
   {
     path: '/login',
     meta: {
-      title: '登录页',
+      title: '登录',
     },
     component: () => import('@/views/LoginView.vue'), //路由懒加载
   },
   {
     path: '/home',
     meta: {
-      title: '主页',
+      title: '肿瘤术后复发预测报告分析平台',
     },
     component: () => import('@/views/HomeView.vue'),
   },
@@ -26,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/:pathMatch(.*)*',
     meta: {
-      title: '错误页',
+      title: '错误',
     },
     component: () => import('@/views/notFound.vue'),
   },

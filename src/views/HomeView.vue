@@ -1,57 +1,22 @@
 <template>
   <div class="title">肿瘤术后复发预测报告分析平台</div>
-  <div class="flex justify-end w-full">
-    <el-button type="primary" @click="onExport">导出excel</el-button>
-    <import-excel class="ml-20px" @success="loadDataSuccess">导入</import-excel>
-  </div>
-  <div class="text-red">unocss导入数据：{{ showValue }}</div>
   <el-tabs class="tabs" v-model="activeName">
     <el-tab-pane v-for="tab in tabs" :key="tab.name" :label="tab.label" :name="tab.name">
-      <!-- <component :is="tab.name" /> -->
+      <component v-if="tab.comp" :is="tab.comp" />
     </el-tab-pane>
   </el-tabs>
 </template>
 <script lang="ts" setup>
-import { jsonToSheetXlsx } from '@/components/ExportExcel';
-
-const state = reactive({
-  list: [
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-    },
-    {
-      id: 3,
-    },
-  ]
-})
-const onExport = () => {
-  let data = [] as any;
-  data = state.list.map((row) => ({
-    编号: row.id
-  }));
-  jsonToSheetXlsx({
-    data,
-    filename: '导出数据.xlsx'
-  });
-}
-const showValue = ref();
-const loadDataSuccess = (data: any) => {
-  console.log('导入成功', data)
-  showValue.value = data;
-}
-
+import myData from './myData/index.vue'
 const activeName = ref('first')
 const tabs = [
   { label: '首页', name: 'first' },
-  { label: '数据集', name: 'second' },
+  { label: '数据集', name: 'second', comp: myData },
   { label: '数据处理', name: 'third' },
   { label: '数据分析', name: 'fourth' },
 ]
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .title {
   font-size: 24px;
   text-align: center;

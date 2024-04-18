@@ -22,6 +22,13 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import('@/views/HomeView.vue'),
   },
+  {
+    path: '/mydata',
+    meta: {
+      title: '我的数据',
+    },
+    component: () => import('@/views/myData/index.vue'),
+  },
   // 配置404页面
   {
     path: '/:pathMatch(.*)*',

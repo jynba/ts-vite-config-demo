@@ -2,7 +2,7 @@
  * @Author: GRIT
  * @Date: 2023-05-08 15:26:33
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-04-17 11:02:08
+ * @LastEditTime: 2024-04-18 20:11:08
  * @FilePath: \vue_study\Vite4.3+Typescript+Vue3+Pinia_Project\vite-vue-ts-seed\vite.config.ts
  * @Description:
  */
@@ -67,6 +67,18 @@ export default defineConfig({
     alias: {
       '@': resolve('./src'), // @代替src
       '#': resolve('./types'), // #代替types
+    },
+  },
+  server: {
+    open: true, //自动打开
+    proxy: {
+      // 本地开发环境通过代理实现跨域，生产环境使用 nginx 转发
+      // 正则表达式写法
+      '^/api': {
+        //target: env.apiBaseUrl, // 后端服务实际地址
+        changeOrigin: true, //开启代理
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
     },
   },
   css: {

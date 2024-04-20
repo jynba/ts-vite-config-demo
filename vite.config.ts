@@ -2,7 +2,7 @@
  * @Author: GRIT
  * @Date: 2023-05-08 15:26:33
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-04-18 20:11:08
+ * @LastEditTime: 2024-04-19 15:08:28
  * @FilePath: \vue_study\Vite4.3+Typescript+Vue3+Pinia_Project\vite-vue-ts-seed\vite.config.ts
  * @Description:
  */
@@ -12,6 +12,7 @@ import { defineConfig } from 'vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path' //这个path用到了上面安装的@types/node
@@ -59,8 +60,12 @@ export default defineConfig({
       },
     }),
     Components({
-      resolvers: [ElementPlusResolver({ importStyle: 'sass' }), IconsResolver()],
-      dts: './types/components.d.ts',
+      resolvers: [ElementPlusResolver(), IconsResolver()],
+      dts: resolve(process.cwd(), '.', 'types/components.d.ts'),
+    }),
+    Icons({
+      compiler: 'vue3',
+      autoInstall: true,
     }),
   ],
   resolve: {

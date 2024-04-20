@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -29,6 +29,20 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import('@/views/myData/index.vue'),
   },
+  {
+    path: '/mydataDetail',
+    meta: {
+      title: '数据详情',
+    },
+    component: () => import('@/views/myData/detail/index.vue'),
+  },
+  {
+    path: '/dealData',
+    meta: {
+      title: '数据处理',
+    },
+    component: () => import('@/views/dealData/index.vue'),
+  },
   // 配置404页面
   {
     path: '/:pathMatch(.*)*',
@@ -40,7 +54,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes: routes,
   // routes: [
   //   {

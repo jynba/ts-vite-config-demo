@@ -2,10 +2,8 @@
   <el-tabs class="tabs" v-model="activeName" @tab-change='tabChange'>
     <el-tab-pane disabled>
       <template #label>
-        <div class="w-200px tracking-wider">
-          <h3 class="text-xl m-7px font-bold text-black tracking-4px">
-            预测报告分析平台
-          </h3>
+        <div class="text-xl mb-[-10px] flex items-start font-bold w-200px text-black tracking-4px px-10px">
+          预测报告分析平台
         </div>
       </template>
     </el-tab-pane>
@@ -32,18 +30,25 @@ const activeName = ref('home')
 const tabs = [
   { label: '首页', name: 'home', icon: EpElementPlus },
   { label: '我的数据', name: 'mydata', icon: EpDataAnalysis },
-  { label: '数据处理', name: 'mydataDetail', icon: EpOperation },
-  { label: '数据分析', name: 'dealData', icon: EpTrendCharts },
+  { label: '数据处理', name: 'dealData', icon: EpOperation },
+  { label: '数据分析', name: 'analyzeData', icon: EpTrendCharts },
 ]
 const tabChange = () => {
   router.push({ path: '/' + activeName.value });
 }
+onMounted(() => {
+  activeName.value = router.currentRoute.value.path.slice(1)
+})
 </script>
 <style lang="scss" scoped>
 .title {
   font-size: 24px;
   text-align: center;
   font-weight: bold;
+}
+
+:deep(.el-tabs__header) {
+  margin: 0;
 }
 
 .tabs {
@@ -53,5 +58,6 @@ const tabChange = () => {
   font-weight: bold;
   text-align: center;
   color: #409eff;
+  padding: 10px;
 }
 </style>

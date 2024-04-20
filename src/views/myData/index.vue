@@ -28,6 +28,12 @@
                   </el-icon>
                   <span class="ml-10px">导出</span>
                 </div>
+                <div class="flex items-center p-5px cursor-pointer hover:bg-[#f5f7fa]" @click="">
+                  <el-icon>
+                    <Delete />
+                  </el-icon>
+                  <span class="ml-10px">删除</span>
+                </div>
               </div>
             </el-popover>
           </div>
@@ -88,7 +94,7 @@ const loadDataSuccess = (data: any) => {
 
 const goDetail = (id: string) => {
   router.push({
-    path: '/mydataDetail',
+    path: '/dealData',
     query: {
       id: id,
     },

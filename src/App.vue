@@ -5,7 +5,7 @@ import Layout from '@/components/Layout/index.vue'
 
 <template>
   <layout></layout>
-  <div>
+  <div class="bg-[#FFFFFF]">
     <RouterView />
   </div>
 </template>

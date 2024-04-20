@@ -43,6 +43,13 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import('@/views/dealData/index.vue'),
   },
+  {
+    path: '/analyzeData',
+    meta: {
+      title: '数据分析',
+    },
+    component: () => import('@/views/analyzeData/index.vue'),
+  },
   // 配置404页面
   {
     path: '/:pathMatch(.*)*',

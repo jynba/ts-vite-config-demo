@@ -1,13 +1,7 @@
 import { createRouter, createWebHashHistory, type RouteRecordRaw } from 'vue-router'
+import { LAYOUT } from './constant'
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    meta: {
-      title: '肿瘤术后复发预测报告分析平台',
-    },
-    component: () => import('@/views/HomeView.vue'),
-  },
   {
     path: '/login',
     meta: {
@@ -16,39 +10,48 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/LoginView.vue'), //路由懒加载
   },
   {
-    path: '/home',
+    path: '/',
     meta: {
       title: '肿瘤术后复发预测报告分析平台',
     },
-    component: () => import('@/views/HomeView.vue'),
-  },
-  {
-    path: '/mydata',
-    meta: {
-      title: '我的数据',
-    },
-    component: () => import('@/views/myData/index.vue'),
-  },
-  {
-    path: '/mydataDetail',
-    meta: {
-      title: '数据详情',
-    },
-    component: () => import('@/views/myData/detail/index.vue'),
-  },
-  {
-    path: '/dealData',
-    meta: {
-      title: '数据处理',
-    },
-    component: () => import('@/views/dealData/index.vue'),
-  },
-  {
-    path: '/analyzeData',
-    meta: {
-      title: '数据分析',
-    },
-    component: () => import('@/views/analyzeData/index.vue'),
+    component: LAYOUT,
+    children:[
+      {
+        path: '/home',
+        meta: {
+          title: '肿瘤术后复发预测报告分析平台',
+        },
+        component: () => import('@/views/HomeView.vue'),
+      },
+      {
+        path: '/mydata',
+        meta: {
+          title: '我的数据',
+        },
+        component: () => import('@/views/myData/index.vue'),
+      },
+      {
+        path: '/mydataDetail',
+        meta: {
+          title: '数据详情',
+        },
+        component: () => import('@/views/myData/detail/index.vue'),
+      },
+      {
+        path: '/dealData',
+        meta: {
+          title: '数据处理',
+        },
+        component: () => import('@/views/dealData/index.vue'),
+      },
+      {
+        path: '/analyzeData',
+        meta: {
+          title: '数据分析',
+        },
+        component: () => import('@/views/analyzeData/index.vue'),
+      },
+    ]
   },
   // 配置404页面
   {

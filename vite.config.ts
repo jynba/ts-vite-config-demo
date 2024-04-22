@@ -75,13 +75,13 @@ export default defineConfig({
     },
   },
   server: {
-    open: true, //自动打开
+    host: '0.0.0.0',
+    open: true,
+    cors: true,
     proxy: {
-      // 本地开发环境通过代理实现跨域，生产环境使用 nginx 转发
-      // 正则表达式写法
-      '^/api': {
-        //target: env.apiBaseUrl, // 后端服务实际地址
-        changeOrigin: true, //开启代理
+      '/api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },

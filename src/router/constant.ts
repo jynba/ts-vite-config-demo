@@ -11,7 +11,7 @@ export const PAGE_NOT_FOUND_NAME = 'PageNotFound';
 
 export const EXCEPTION_COMPONENT = () => import('@/views/system/exception/Exception.vue');
 
-export const LAYOUT = () => import('@/layout/index.vue');
+export const LAYOUT = () => import('@/components/Layout/index.vue');
 
 export const getParentLayout = (_name?: string) => {
   return () =>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex justify-end w-full">
-      <import-excel class="mx-20px" btn-text="上传数据" @success="loadDataSuccess"></import-excel>
+      <import-excel class="m-20px" btn-text="上传数据" @success="loadDataSuccess"></import-excel>
     </div>
     <div class="flex flex-wrap ml-20px min-h-182px">
       <div class="flex flex-col justify-items-center items-center" v-for="item in state.fileList" :key="item.id">

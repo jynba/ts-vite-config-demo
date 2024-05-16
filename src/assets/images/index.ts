@@ -1,4 +1,12 @@
 import excel from './excel.svg'
 import cox from './cox.png'
 import cox_table from './cox_table.png'
-export { excel, cox, cox_table }
+import banner1 from './banner.png'
+import banner2 from './banner2.jpg'
+import scene1 from './scene1.png'
+import scene2 from './scene2.png'
+import scene3 from './scene3.png'
+import analyzs from './analy.svg'
+import set from './set.svg'
+import pre from './pre.svg'
+export { excel, cox, cox_table, banner1, banner2, scene1, scene2, scene3, analyzs, set, pre }

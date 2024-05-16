@@ -15,6 +15,7 @@ const routes: Array<RouteRecordRaw> = [
       title: '肿瘤术后复发预测报告分析平台',
     },
     component: LAYOUT,
+    redirect: '/home',
     children:[
       {
         path: '/home',

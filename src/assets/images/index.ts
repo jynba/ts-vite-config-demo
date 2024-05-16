@@ -9,4 +9,6 @@ import scene3 from './scene3.png'
 import analyzs from './analy.svg'
 import set from './set.svg'
 import pre from './pre.svg'
-export { excel, cox, cox_table, banner1, banner2, scene1, scene2, scene3, analyzs, set, pre }
+import login from './login.svg'
+import register from './register.svg'
+export { excel, cox, cox_table, banner1, banner2, scene1, scene2, scene3, analyzs, set, pre,login,register }

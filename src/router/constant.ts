@@ -1,15 +1,8 @@
-/*
- * @Author: kingford
- * @Date: 2021-07-24 11:43:09
- * @LastEditTime: 2023-12-22 14:49:52
- */
 export const REDIRECT_NAME = 'Redirect';
 
 export const PARENT_LAYOUT_NAME = 'ParentLayout';
 
 export const PAGE_NOT_FOUND_NAME = 'PageNotFound';
-
-export const EXCEPTION_COMPONENT = () => import('@/views/system/exception/Exception.vue');
 
 export const LAYOUT = () => import('@/components/Layout/index.vue');
 

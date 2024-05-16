@@ -1,6 +1,6 @@
 <template>
   <div class="mySticky">
-    <el-tabs class="tabs" v-model="activeName" @tab-change='tabChange'>
+    <el-tabs class="tabs" v-model="activeName" @tab-change="tabChange">
       <el-tab-pane disabled>
         <template #label>
           <div class="text-xl mb-[-10px] flex items-start font-bold w-200px text-black tracking-4px px-10px">
@@ -10,7 +10,7 @@
       </el-tab-pane>
       <el-tab-pane v-for="tab in tabs" :key="tab.name" :name="tab.name">
         <template #label>
-          <div class="text-xl flex items-center p-10px ">
+          <div class="text-xl flex items-center p-10px">
             <component v-if="tab.icon" :is="tab.icon" />
             <span>
               {{ tab.label }}
@@ -20,7 +20,7 @@
       </el-tab-pane>
     </el-tabs>
   </div>
-  <el-tabs class="tabs" v-model="activeName" @tab-change='tabChange'>
+  <el-tabs class="tabs" v-model="activeName" @tab-change="tabChange">
     <el-tab-pane disabled>
       <template #label>
         <div class="text-xl mb-[-10px] flex items-start font-bold w-200px text-black tracking-4px px-10px">

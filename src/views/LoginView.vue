@@ -1,121 +1,367 @@
 <template>
-  <div class="login-body">
-    <div class="login-container">
-      <div class="head">
-        <img class="logo" src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg" />
-        <div class="name">
-          <div class="tips">肿瘤术后复发预测报告分析平台</div>
-        </div>
+  <div ref="container" class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+        <form ref="loginForm" class="sign-in-form" autocomplete="on">
+          <h2 class="title">登录</h2>
+          <div class="input-field">
+            <i class="iconfont icon-yonghuming"></i>
+            <input type="text" v-model="state.ruleForm.username" placeholder="用户名" />
+          </div>
+          <div class="input-field">
+            <i class="iconfont icon-mima"></i>
+            <input type="password" v-model="state.ruleForm.password" placeholder="密码" />
+          </div>
+          <input type="submit" value="登 录" @click="submitForm('login')" class="btn solid" />
+        </form>
+        <form ref="loginForm" class="sign-up-form" autocomplete="on">
+          <h2 class="title">注册</h2>
+          <div class="input-field">
+            <i class="iconfont icon-yonghuming"></i>
+            <input v-model="state.ruleForm.username" type="text" placeholder="用户名" />
+          </div>
+          <div class="input-field">
+            <i class="iconfont icon-mima"></i>
+            <input v-model="state.ruleForm.password" type="password" placeholder="密码" />
+          </div>
+          <div class="input-field">
+            <i class="iconfont icon-mima"></i>
+            <input v-model="state.ruleForm.repeat_pass" type="password" placeholder="再次输入密码" />
+          </div>
+          <input type="submit" class="btn" @click="submitForm('register')" value="注 册" />
+        </form>
       </div>
-      <el-form label-position="top" :rules="state.rules" :model="state.ruleForm" ref="loginForm" class="login-form">
-        <el-form-item label="账号" prop="username">
-          <el-input
-            type="text"
-            v-model.trim="state.ruleForm.username"
-            autocomplete="off"
-            placeholder="admin"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input
-            type="password"
-            v-model.trim="state.ruleForm.password"
-            autocomplete="off"
-            placeholder="123456"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button style="width: 100%" type="primary" @click="submitForm">立即登录</el-button>
-        </el-form-item>
-      </el-form>
+    </div>
+
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>如果你是新用户</h3>
+          <p>点击下方注册按钮加入我们吧!!</p>
+          <button class="btn transparent" @click="signUp">注册</button>
+        </div>
+        <img :src="login" class="image" alt="" />
+      </div>
+      <div class="panel right-panel">
+        <img :src="register" class="image" alt="" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import request from '@/utils/request'
+import { login, register } from '@/assets/images'
+import router from '@/router'
+const container = ref()
+const signUp = () => {
+  container.value.classList.add('sign-up-mode')
+}
 
-const loginForm = ref()
 const state = reactive({
   ruleForm: {
     username: '',
     password: '',
+    repeat_pass: '',
   },
   rules: {
     username: [{ required: 'true', message: '账户不能为空', trigger: 'blur' }],
     password: [{ required: 'true', message: '密码不能为空', trigger: 'blur' }],
+    repeat_pass: [{ required: 'true', message: '密码不能为空', trigger: 'blur' }],
   },
 })
-const submitForm = async () => {
-  loginForm.value.validate((valid) => {
-    if (valid) {
-      request
-        .post('/login', {
-          username: state.ruleForm.username,
-          password: state.ruleForm.password,
-        })
-        .then((res) => {
-          window.location.href = '/'
-        })
-    } else {
-      console.log('error submit!!')
+const submitForm = async (type) => {
+  if (type == 'login') {
+    try {
+      const data = await request.post('/login', {
+        username: state.ruleForm.username,
+        password: state.ruleForm.password,
+      })
+      if (data.id) {
+        ElMessage.success('登录成功')
+        router.push('/')
+      }
+    } catch (e) {
+      ElMessage.error('用户名或密码错误')
+    }
+  } else {
+    if (state.ruleForm.password !== state.ruleForm.repeat_pass) {
+      ElMessage.error('两次密码不一致')
       return false
     }
-  })
+    try {
+      const data = await request.post('/register', {
+        username: state.ruleForm.username,
+        password: state.ruleForm.password,
+      })
+      if (data.id) {
+        ElMessage.success('注册成功')
+        signUp()
+      }
+    } catch (e) {
+      ElMessage.error('注册失败')
+    }
+  }
 }
 </script>
 
 <style scoped>
-.login-body {
-  display: flex;
-  height: 100%;
-  place-content: center;
-  place-items: center;
+.container {
+  position: relative;
   width: 100%;
   background-color: #fff;
+  min-height: 100vh;
+  overflow: hidden;
 }
-.login-container {
-  width: 420px;
-  height: 500px;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0px 21px 41px 0px rgba(0, 0, 0, 0.2);
+
+.forms-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
-.head {
+
+.signin-signup {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 75%;
+  width: 50%;
+  transition: 1s 0.7s ease-in-out;
+  display: grid;
+  grid-template-columns: 1fr;
+  z-index: 5;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0rem 5rem;
+  transition: all 0.2s 0.7s;
+  overflow: hidden;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+form.sign-up-form {
+  opacity: 0;
+  z-index: 1;
+}
+
+form.sign-in-form {
+  z-index: 2;
+}
+
+.title {
+  font-size: 2.2rem;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.input-field {
+  max-width: 380px;
+  width: 100%;
+  background-color: #f0f0f0;
+  margin: 10px 0;
+  height: 55px;
+  border-radius: 55px;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  padding: 0 0.4rem;
+  position: relative;
+}
+
+.input-field i {
+  text-align: center;
+  line-height: 55px;
+  color: #acacac;
+  transition: 0.5s;
+  font-size: 1.3rem;
+}
+
+.input-field input {
+  background: none;
+  outline: none;
+  border: none;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.input-field input::placeholder {
+  color: #aaa;
+  font-weight: 500;
+}
+
+.social-text {
+  padding: 0.7rem 0;
+  font-size: 1rem;
+}
+
+.social-media {
+  display: flex;
+  justify-content: center;
+}
+
+.social-icon {
+  height: 46px;
+  width: 46px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 0 20px 0;
+  margin: 0 0.45rem;
+  color: #333;
+  border-radius: 50%;
+  border: 1px solid #333;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: 0.3s;
 }
-.head img {
-  width: 100px;
-  height: 100px;
-  margin-right: 20px;
+
+.social-icon:hover {
+  color: #4481eb;
+  border-color: #4481eb;
 }
-.head .title {
-  font-size: 28px;
-  color: #1baeae;
-  font-weight: bold;
+
+.btn {
+  width: 150px;
+  background-color: #5995fd;
+  border: none;
+  outline: none;
+  height: 49px;
+  border-radius: 49px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 10px 0;
+  cursor: pointer;
+  transition: 0.5s;
 }
-.head .tips {
-  font-size: 24px;
-  color: #999;
+
+.btn:hover {
+  background-color: #4d84e2;
 }
-.head .logo {
-  border-radius: 10%;
+.panels-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
-.login-form {
-  width: 70%;
-  margin: 0 auto;
+
+.container:before {
+  content: '';
+  position: absolute;
+  height: 2000px;
+  width: 2000px;
+  top: -10%;
+  right: 48%;
+  transform: translateY(-50%);
+  background-image: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
+  transition: 1.8s ease-in-out;
+  border-radius: 50%;
+  z-index: 6;
 }
-.login-form {
-  :deep(.el-form--label-top .el-form-item__label) {
-    padding: 0;
-  }
+
+.image {
+  width: 100%;
+  transition: transform 1.1s ease-in-out;
+  transition-delay: 0.4s;
 }
-.login-form {
-  :deep(.el-form-item) {
-    margin-bottom: 0;
-  }
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
+  text-align: center;
+  z-index: 6;
+}
+
+.left-panel {
+  pointer-events: all;
+  padding: 3rem 17% 2rem 12%;
+}
+
+.right-panel {
+  pointer-events: none;
+  padding: 3rem 12% 2rem 17%;
+}
+
+.panel .content {
+  color: #fff;
+  transition: transform 0.9s ease-in-out;
+  transition-delay: 0.6s;
+}
+
+.panel h3 {
+  font-weight: 600;
+  line-height: 1;
+  font-size: 1.5rem;
+}
+
+.panel p {
+  font-size: 0.95rem;
+  padding: 0.7rem 0;
+}
+
+.btn.transparent {
+  margin: 0;
+  background: none;
+  border: 2px solid #fff;
+  width: 130px;
+  height: 41px;
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.right-panel .image,
+.right-panel .content {
+  transform: translateX(800px);
+}
+
+/* ANIMATION */
+
+.container.sign-up-mode:before {
+  transform: translate(100%, -50%);
+  right: 52%;
+}
+
+.container.sign-up-mode .left-panel .image,
+.container.sign-up-mode .left-panel .content {
+  transform: translateX(-800px);
+}
+
+.container.sign-up-mode .signin-signup {
+  left: 25%;
+}
+
+.container.sign-up-mode form.sign-up-form {
+  opacity: 1;
+  z-index: 2;
+}
+
+.container.sign-up-mode form.sign-in-form {
+  opacity: 0;
+  z-index: 1;
+}
+
+.container.sign-up-mode .right-panel .image,
+.container.sign-up-mode .right-panel .content {
+  transform: translateX(0%);
+}
+
+.container.sign-up-mode .left-panel {
+  pointer-events: none;
+}
+
+.container.sign-up-mode .right-panel {
+  pointer-events: all;
 }
 </style>
